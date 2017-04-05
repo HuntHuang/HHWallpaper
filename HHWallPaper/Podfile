@@ -1,0 +1,4 @@
+platform :ios, '7.0'
+target 'HHWallPaper' do
+#pod 'XYQuick', '0.9.3'
+end
