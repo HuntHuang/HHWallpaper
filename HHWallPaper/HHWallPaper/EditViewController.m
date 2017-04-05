@@ -49,7 +49,8 @@
 - (void)setMainImageViewWithImage:(UIImage *)image
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 350, IPhoneWidth-20, 200)];
+    UIImage *thumbImage = [self thumbnailWithImage:image multiple:IPhoneWidth-20];
+    UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 350, thumbImage.size.width, thumbImage.size.height)];
     [mainImgView setImage:image];
     
     mainImgView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -130,14 +131,60 @@
     NSLog(@"Suceeded!");
 }
 
+- (UIImage *)thumbnailWithImage:(UIImage *)image
+                       multiple:(NSInteger)multiple
+{
+    UIImage *newimage;
+    if (image == nil)
+    {
+        newimage = nil;
+    }
+    else
+    {
+        CGSize size = [self fitSize:image.size inMultiple:multiple];
+        UIGraphicsBeginImageContext(size);
+        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return newimage;
+}
+
+- (CGSize)fitSize:(CGSize)thisSize
+       inMultiple:(NSInteger)multiple
+{
+    CGFloat scale;
+    CGSize newsize = thisSize;
+    if (newsize.height < newsize.width)
+    {
+        scale = thisSize.height / thisSize.width;
+        newsize.width  = multiple;
+        newsize.height = multiple * scale;
+    }
+    else
+    {
+        scale = thisSize.width / thisSize.height;
+        newsize.height = multiple;
+        newsize.width  = multiple *scale;
+    }
+    return newsize;
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSData *data = UIImageJPEGRepresentation(image, 1);
-    [self setBackgroundViewWithImage:[UIImage imageWithData:data]];
-    [self setMainImageViewWithImage:[UIImage imageWithData:data]];
+    UIImage *mainImage = [UIImage imageWithData:data];
+    if (mainImage.size.height > mainImage.size.width)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [self setBackgroundViewWithImage:mainImage];
+    [self setMainImageViewWithImage:mainImage];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self screenShots];
     });
