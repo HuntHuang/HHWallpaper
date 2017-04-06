@@ -8,32 +8,56 @@
 
 #import "EditViewController.h"
 #import "GPUImageGaussianBlurFilter.h"
-#import "GPUImageHazeFilter.h"
-#define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width    
+
+#define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
 #define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
 
-@interface EditViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface EditViewController ()
+
+@property (nonatomic, strong) UIImage *mainImage;
+@property (nonatomic, weak) UIButton *saveBtn;
 
 @end
 
 @implementation EditViewController
 
+- (instancetype)initWithImage:(UIImage *)image
+{
+    self = [super init];
+    if (self)
+    {
+        self.mainImage = image;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(12, 300, 100, 50)];
-    [button setTitle:@"Choose" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor redColor]];
-    [button addTarget:self action:@selector(presentImagePicker) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+    [self setBackgroundViewWithImage:self.mainImage];
+    [self setMainImageViewWithImage:self.mainImage];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, IPhoneHeight - 50, 40, 40)];
+    [saveBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+    [saveBtn addTarget:self action:@selector(onClickedSave) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:saveBtn];
+    self.saveBtn = saveBtn;
 }
 
-- (void)presentImagePicker
+- (void)onClickedSave
 {
-    UIImagePickerController *pickCtl = [[UIImagePickerController alloc] init];
-    pickCtl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    pickCtl.delegate = self;
-    [self presentViewController:pickCtl animated:YES completion:nil];
+    [self.saveBtn removeFromSuperview];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self screenShots];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)onClickedImageView
+{
+    BOOL hidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
 }
 
 - (void)setBackgroundViewWithImage:(UIImage *)image
@@ -43,14 +67,21 @@
     UIImage *blurredImage = [blurFilter imageByFilteringImage:image];
     UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
     [bgImgView setImage:blurredImage];
+    [bgImgView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    bgImgView.contentMode =  UIViewContentModeScaleAspectFill;
+    bgImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    bgImgView.clipsToBounds  = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
+    [self.view addGestureRecognizer:tap];
     [self.view addSubview:bgImgView];
 }
 
 - (void)setMainImageViewWithImage:(UIImage *)image
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    UIImage *thumbImage = [self thumbnailWithImage:image multiple:IPhoneWidth-20];
-    UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 350, thumbImage.size.width, thumbImage.size.height)];
+    CGSize newSize = [self getNewSizeFromOriginalSize:image.size inMultiple:IPhoneWidth-20];
+    UIImageView *mainImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 350, newSize.width, newSize.height)];
     [mainImgView setImage:image];
     
     mainImgView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -128,66 +159,25 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    NSLog(@"Suceeded!");
 }
 
-- (UIImage *)thumbnailWithImage:(UIImage *)image
-                       multiple:(NSInteger)multiple
-{
-    UIImage *newimage;
-    if (image == nil)
-    {
-        newimage = nil;
-    }
-    else
-    {
-        CGSize size = [self fitSize:image.size inMultiple:multiple];
-        UIGraphicsBeginImageContext(size);
-        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        newimage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return newimage;
-}
-
-- (CGSize)fitSize:(CGSize)thisSize
-       inMultiple:(NSInteger)multiple
+- (CGSize)getNewSizeFromOriginalSize:(CGSize)originalSize
+                          inMultiple:(NSInteger)multiple
 {
     CGFloat scale;
-    CGSize newsize = thisSize;
+    CGSize newsize = originalSize;
     if (newsize.height < newsize.width)
     {
-        scale = thisSize.height / thisSize.width;
+        scale = originalSize.height / originalSize.width;
         newsize.width  = multiple;
         newsize.height = multiple * scale;
     }
     else
     {
-        scale = thisSize.width / thisSize.height;
+        scale = originalSize.width / originalSize.height;
         newsize.height = multiple;
         newsize.width  = multiple *scale;
     }
     return newsize;
 }
-
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(image, 1);
-    UIImage *mainImage = [UIImage imageWithData:data];
-    if (mainImage.size.height > mainImage.size.width)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
-        return;
-    }
-    [self setBackgroundViewWithImage:mainImage];
-    [self setMainImageViewWithImage:mainImage];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self screenShots];
-    });
-}
-
 @end

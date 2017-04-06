@@ -10,4 +10,6 @@
 
 @interface EditViewController : UIViewController
 
+- (instancetype)initWithImage:(UIImage *)image;
+
 @end

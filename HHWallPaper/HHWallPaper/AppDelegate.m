@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "EditViewController.h"
+#import "TemplateViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +20,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    EditViewController *vc = [[EditViewController alloc] init];
-//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = vc;
+    TemplateViewController *vc = [[TemplateViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     return YES;
 }
