@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TemplateViewController.h"
+#import "QMUIConfigurationTemplate.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [QMUIConfigurationTemplate setupConfigurationTemplate];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     TemplateViewController *vc = [[TemplateViewController alloc] init];

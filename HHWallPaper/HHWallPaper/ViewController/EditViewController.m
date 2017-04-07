@@ -8,6 +8,7 @@
 
 #import "EditViewController.h"
 #import "GPUImageGaussianBlurFilter.h"
+#import "QMUITips.h"
 
 #define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
 #define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
@@ -50,8 +51,7 @@
     [self.saveBtn removeFromSuperview];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self screenShots];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
+    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
 }
 
 - (void)onClickedImageView

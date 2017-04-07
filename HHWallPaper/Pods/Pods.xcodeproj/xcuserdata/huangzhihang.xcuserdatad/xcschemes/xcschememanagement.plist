@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>QMUIKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,11 +23,6 @@
 			<true/>
 		</dict>
 		<key>12F779D7C521FE9550C6C0AF57128523</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>92D1F44CE9805FA1F13DF643D500E0DC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
