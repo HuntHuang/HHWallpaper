@@ -7,7 +7,8 @@
 //
 
 #import "TemplateViewController.h"
-#import "EditViewController.h"
+#import "GaussianBlurViewController.h"
+#import "SquareViewController.h"
 #import "QMUICollectionViewPagingLayout.h"
 #import "QDCollectionViewDemoCell.h"
 #import "QMUICommonDefines.h"
@@ -101,6 +102,11 @@
         pickCtl.delegate = self;
         [self presentViewController:pickCtl animated:YES completion:nil];
     }
+    else if (indexPath.item == 1)
+    {
+        SquareViewController *vc = [[SquareViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -116,7 +122,7 @@
         [alertView show];
         return;
     }
-    EditViewController *vc = [[EditViewController alloc] initWithImage:mainImage];
+    GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:mainImage];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

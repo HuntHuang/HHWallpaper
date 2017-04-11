@@ -1,26 +1,26 @@
 //
-//  EditViewController.m
+//  GaussianBlurViewController.m
 //  HHWallPaper
 //
-//  Created by 黄志航 on 2017/4/5.
+//  Created by 黄志航 on 2017/4/10.
 //  Copyright © 2017年 Hunt. All rights reserved.
 //
 
-#import "EditViewController.h"
+#import "GaussianBlurViewController.h"
 #import "GPUImageGaussianBlurFilter.h"
 #import "QMUITips.h"
 
 #define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
 #define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
 
-@interface EditViewController ()
+@interface GaussianBlurViewController ()
 
 @property (nonatomic, strong) UIImage *mainImage;
 @property (nonatomic, weak) UIButton *saveBtn;
 
 @end
 
-@implementation EditViewController
+@implementation GaussianBlurViewController
 
 - (instancetype)initWithImage:(UIImage *)image
 {
@@ -136,10 +136,10 @@
     {
         UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
     }
-//    else
-//    {
-//        UIGraphicsBeginImageContext(imageSize);
-//    }
+    //    else
+    //    {
+    //        UIGraphicsBeginImageContext(imageSize);
+    //    }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -180,4 +180,5 @@
     }
     return newsize;
 }
+
 @end

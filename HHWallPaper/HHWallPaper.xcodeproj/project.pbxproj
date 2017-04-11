@@ -12,10 +12,11 @@
 		E00E37C81E963A9500FBF01D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E00E37C31E963A9500FBF01D /* LaunchScreen.storyboard */; };
 		E00E37C91E963A9500FBF01D /* HHInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E00E37C51E963A9500FBF01D /* HHInfo.plist */; };
 		E00E37CA1E963A9500FBF01D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37C61E963A9500FBF01D /* main.m */; };
-		E00E37D01E963AA800FBF01D /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37CD1E963AA800FBF01D /* EditViewController.m */; };
 		E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37CF1E963AA800FBF01D /* TemplateViewController.m */; };
 		E00E39301E963AAF00FBF01D /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00E37D41E963AAE00FBF01D /* libGPUImage.a */; };
 		E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */; };
+		E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */; };
+		E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1951E9B6714003A60C8 /* SquareViewController.m */; };
 		E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
@@ -26,8 +27,6 @@
 		E00E37C41E963A9500FBF01D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E00E37C51E963A9500FBF01D /* HHInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = HHInfo.plist; path = "Supporting File/HHInfo.plist"; sourceTree = "<group>"; };
 		E00E37C61E963A9500FBF01D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Supporting File/main.m"; sourceTree = "<group>"; };
-		E00E37CC1E963AA800FBF01D /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
-		E00E37CD1E963AA800FBF01D /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		E00E37CE1E963AA800FBF01D /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
 		E00E37CF1E963AA800FBF01D /* TemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateViewController.m; sourceTree = "<group>"; };
 		E00E37D41E963AAE00FBF01D /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGPUImage.a; sourceTree = "<group>"; };
@@ -205,6 +204,10 @@
 		E00E38831E963AAE00FBF01D /* GPUImageZoomBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageZoomBlurFilter.h; sourceTree = "<group>"; };
 		E054A18E1E977CA9003A60C8 /* QDCollectionViewDemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCollectionViewDemoCell.h; sourceTree = "<group>"; };
 		E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCollectionViewDemoCell.m; sourceTree = "<group>"; };
+		E054A1911E9B5AB9003A60C8 /* GaussianBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaussianBlurViewController.h; sourceTree = "<group>"; };
+		E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaussianBlurViewController.m; sourceTree = "<group>"; };
+		E054A1941E9B6714003A60C8 /* SquareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareViewController.h; sourceTree = "<group>"; };
+		E054A1951E9B6714003A60C8 /* SquareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareViewController.m; sourceTree = "<group>"; };
 		E0C4C92D1E94D92D00A4E7FC /* HHWallPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHWallPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4C9331E94D92D00A4E7FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -255,8 +258,10 @@
 			children = (
 				E00E37CE1E963AA800FBF01D /* TemplateViewController.h */,
 				E00E37CF1E963AA800FBF01D /* TemplateViewController.m */,
-				E00E37CC1E963AA800FBF01D /* EditViewController.h */,
-				E00E37CD1E963AA800FBF01D /* EditViewController.m */,
+				E054A1911E9B5AB9003A60C8 /* GaussianBlurViewController.h */,
+				E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */,
+				E054A1941E9B6714003A60C8 /* SquareViewController.h */,
+				E054A1951E9B6714003A60C8 /* SquareViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -647,11 +652,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */,
 				E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */,
 				E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */,
-				E00E37D01E963AA800FBF01D /* EditViewController.m in Sources */,
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,
+				E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
