@@ -7,10 +7,9 @@
 //
 
 #import "SquareViewController.h"
+#import "UIImage+QMUI.h"
+#import "CommonTool.h"
 #import "QMUITips.h"
-
-#define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
-#define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
 
 @interface SquareViewController ()
 
@@ -24,8 +23,11 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self setupAppIcon];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
+    [self.view addGestureRecognizer:tap];
     
     UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, IPhoneHeight - 50, 40, 40)];
     [saveBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
@@ -105,40 +107,15 @@
 {
     [self.saveBtn removeFromSuperview];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self screenShots];
+    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
 }
 
-- (void)screenShots
+- (void)onClickedImageView
 {
-    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
-    if (NULL != &UIGraphicsBeginImageContextWithOptions)
-    {
-        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-    }
-    //    else
-    //    {
-    //        UIGraphicsBeginImageContext(imageSize);
-    //    }
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    for (UIWindow * window in [[UIApplication sharedApplication] windows])
-    {
-        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
-        {
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, [window center].x, [window center].y);
-            CGContextConcatCTM(context, [window transform]);
-            CGContextTranslateCTM(context, -[window bounds].size.width*[[window layer] anchorPoint].x, -[window bounds].size.height*[[window layer] anchorPoint].y);
-            [[window layer] renderInContext:context];
-            CGContextRestoreGState(context);
-        }
-    }
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+    BOOL hidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
 }
 
 @end

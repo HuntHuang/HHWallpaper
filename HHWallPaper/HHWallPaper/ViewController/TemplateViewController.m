@@ -72,16 +72,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return self.sampleArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     QDCollectionViewDemoCell *cell = (QDCollectionViewDemoCell *)[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    if (indexPath.item == 0)
-    {
-        cell.sampleImage = self.sampleArray[indexPath.item];
-    }
+    cell.sampleImage = self.sampleArray[indexPath.item];
     [cell setNeedsLayout];
     return cell;
 }
@@ -105,7 +102,7 @@
     else if (indexPath.item == 1)
     {
         SquareViewController *vc = [[SquareViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -130,7 +127,7 @@
 {
     if (!_sampleArray)
     {
-        _sampleArray = @[@"Sample1"];
+        _sampleArray = @[@"Sample1", @"Sample2"];
     }
     return _sampleArray;
 }

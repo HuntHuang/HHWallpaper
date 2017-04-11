@@ -8,10 +8,9 @@
 
 #import "GaussianBlurViewController.h"
 #import "GPUImageGaussianBlurFilter.h"
+#import "UIImage+QMUI.h"
+#import "CommonTool.h"
 #import "QMUITips.h"
-
-#define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
-#define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
 
 @interface GaussianBlurViewController ()
 
@@ -50,7 +49,8 @@
 {
     [self.saveBtn removeFromSuperview];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self screenShots];
+    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
 }
 
@@ -110,8 +110,6 @@
     CGPoint lddRight = CGPointMake(x+width , y+ height );
     [path moveToPoint:topLeft];
     //添加四个二元曲线
-    //    [path addQuadCurveToPoint:topRight
-    //                 controlPoint:topMiddle];
     [path addQuadCurveToPoint:topRight
                  controlPoint:lddRight];
     [path addQuadCurveToPoint:bottomRight
@@ -127,38 +125,6 @@
     mainImgView.layer.shadowPath = path.CGPath;
     
     [self.view addSubview:mainImgView];
-}
-
-- (void)screenShots
-{
-    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
-    if (NULL != &UIGraphicsBeginImageContextWithOptions)
-    {
-        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
-    }
-    //    else
-    //    {
-    //        UIGraphicsBeginImageContext(imageSize);
-    //    }
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    for (UIWindow * window in [[UIApplication sharedApplication] windows])
-    {
-        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
-        {
-            CGContextSaveGState(context);
-            CGContextTranslateCTM(context, [window center].x, [window center].y);
-            CGContextConcatCTM(context, [window transform]);
-            CGContextTranslateCTM(context, -[window bounds].size.width*[[window layer] anchorPoint].x, -[window bounds].size.height*[[window layer] anchorPoint].y);
-            [[window layer] renderInContext:context];
-            CGContextRestoreGState(context);
-        }
-    }
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
 }
 
 - (CGSize)getNewSizeFromOriginalSize:(CGSize)originalSize
