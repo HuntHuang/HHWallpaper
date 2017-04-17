@@ -7,13 +7,20 @@
 //
 
 #import "SquareViewController.h"
+#import "QMUIModalPresentationViewController.h"
 #import "UIImage+QMUI.h"
+#import "UIImage+ColorSelect.h"
 #import "CommonTool.h"
 #import "QMUITips.h"
 
 @interface SquareViewController ()
 
-@property (nonatomic, weak) UIButton *saveBtn;
+@property (nonatomic, weak) UIView *toolBarView;
+@property (nonatomic, weak) UIView *dock;
+@property (nonatomic, weak) UIView *backgroundView;
+@property (nonatomic, weak) UIImageView *paletteView;
+@property (nonatomic, strong) UIColor *mainColor;
+@property (nonatomic, strong) NSMutableArray *iconArray;
 
 @end
 
@@ -23,21 +30,70 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
+    self.mainColor = [UIColor redColor];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     [self setupAppIcon];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
-    [self.view addGestureRecognizer:tap];
-    
-    UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, IPhoneHeight - 50, 40, 40)];
+    [self setupToolBar];
+}
+
+- (void)setupToolBar
+{
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - 50, IPhoneWidth, 50)];
+    [self.view addSubview:toolView];
+    _toolBarView = toolView;
+
+    UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 0, 40, 40)];
     [saveBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
     [saveBtn addTarget:self action:@selector(onClickedSave) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:saveBtn];
-    self.saveBtn = saveBtn;
+    [_toolBarView addSubview:saveBtn];
+    
+    UIButton *paletteBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
+    [paletteBtn setImage:[UIImage imageNamed:@"palette"] forState:UIControlStateNormal];
+    [paletteBtn addTarget:self action:@selector(onClickedPaletteView) forControlEvents:UIControlEventTouchUpInside];
+    [_toolBarView addSubview:paletteBtn];
+}
+
+- (void)onClickedSave
+{
+    [self.toolBarView removeFromSuperview];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
+}
+
+- (void)onClickedImageView
+{
+    BOOL hidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
+}
+
+- (void)onClickedPaletteView
+{
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
+    [self.view addSubview:backgroundView];
+    _backgroundView = backgroundView;
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removePaletteView)];
+    [_backgroundView addGestureRecognizer:tap];
+    
+    UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 250, 240, 240)];
+    [paletteView setImage:[UIImage imageNamed:@"pickerColorWheel"]];
+    [_backgroundView addSubview:paletteView];
+    _paletteView = paletteView;
+}
+
+- (void)removePaletteView
+{
+    [_backgroundView removeFromSuperview];
 }
 
 - (void)setupAppIcon
 {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
+    [self.view addGestureRecognizer:tap];
+    
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 6; j++)
@@ -49,7 +105,7 @@
             CGFloat yPosition  = yMargin*(j+1) + iconLength*j;
             UIImageView *appIcon = [[UIImageView alloc] initWithFrame:CGRectMake(xPosition, yPosition, iconLength, iconLength)];
             [appIcon setImage:[UIImage imageNamed:@"appIcon"]];
-            appIcon.layer.shadowColor = [UIColor redColor].CGColor;//shadowColor阴影颜色
+            appIcon.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
             appIcon.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
             appIcon.layer.shadowOpacity = 1;//阴影透明度，默认0
             appIcon.layer.shadowRadius = 3;//阴影半径，默认3
@@ -94,28 +150,35 @@
             //设置阴影路径
             appIcon.layer.shadowPath = path.CGPath;
             [self.view addSubview:appIcon];
+            [self.iconArray addObject:appIcon];
         }
     }
     
     CGFloat dockHeight = 96;
     UIView *dock = [[UIView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - dockHeight, IPhoneWidth, dockHeight)];
-    dock.backgroundColor = [UIColor redColor];
+    dock.backgroundColor = self.mainColor;
     [self.view addSubview:dock];
+    _dock = dock;
 }
 
-- (void)onClickedSave
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.saveBtn removeFromSuperview];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
-    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
+    UITouch *touch = [touches anyObject];
+    CGPoint tempPoint = [touch locationInView:_paletteView];
+    self.mainColor = [_paletteView.image colorAtPixel:tempPoint];
+    [_dock setBackgroundColor:self.mainColor];
+    for (UIImageView *appIcon in self.iconArray)
+    {
+        appIcon.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
+    }
 }
 
-- (void)onClickedImageView
+- (NSMutableArray *)iconArray
 {
-    BOOL hidden = self.navigationController.navigationBar.hidden;
-    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
+    if (!_iconArray)
+    {
+        _iconArray = [NSMutableArray array];
+    }
+    return _iconArray;
 }
-
 @end

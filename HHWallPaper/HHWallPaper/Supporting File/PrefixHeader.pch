@@ -12,4 +12,6 @@
 #define IPhoneWidth    [[UIScreen mainScreen] bounds].size.width
 #define IPhoneHeight   [[UIScreen mainScreen] bounds].size.height
 
+#import "QMUICommonDefines.h"
+
 #endif /* PrefixHeader_pch */

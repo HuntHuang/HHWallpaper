@@ -11,7 +11,6 @@
 #import "SquareViewController.h"
 #import "QMUICollectionViewPagingLayout.h"
 #import "QDCollectionViewDemoCell.h"
-#import "QMUICommonDefines.h"
 
 @interface TemplateViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 

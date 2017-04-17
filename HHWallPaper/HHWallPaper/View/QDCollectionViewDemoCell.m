@@ -7,7 +7,6 @@
 //
 
 #import "QDCollectionViewDemoCell.h"
-#import "QMUICommonDefines.h"
 #import "UILabel+QMUI.h"
 
 #define UIColorTheme1 UIColorMake(239, 83, 98) // Grapefruit

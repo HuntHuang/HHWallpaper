@@ -15,6 +15,7 @@
 		E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37CF1E963AA800FBF01D /* TemplateViewController.m */; };
 		E00E39301E963AAF00FBF01D /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00E37D41E963AAE00FBF01D /* libGPUImage.a */; };
 		E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E0474F211E9CB4CC006BF902 /* CommonTool.m */; };
+		E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = E0474F251E9CDFA5006BF902 /* UIImage+ColorSelect.m */; };
 		E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */; };
 		E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */; };
 		E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1951E9B6714003A60C8 /* SquareViewController.m */; };
@@ -206,6 +207,8 @@
 		E0474F1E1E9CB2E9006BF902 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = "Supporting File/PrefixHeader.pch"; sourceTree = "<group>"; };
 		E0474F201E9CB4CC006BF902 /* CommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTool.h; sourceTree = "<group>"; };
 		E0474F211E9CB4CC006BF902 /* CommonTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTool.m; sourceTree = "<group>"; };
+		E0474F241E9CDFA5006BF902 /* UIImage+ColorSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorSelect.h"; sourceTree = "<group>"; };
+		E0474F251E9CDFA5006BF902 /* UIImage+ColorSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorSelect.m"; sourceTree = "<group>"; };
 		E054A18E1E977CA9003A60C8 /* QDCollectionViewDemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCollectionViewDemoCell.h; sourceTree = "<group>"; };
 		E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCollectionViewDemoCell.m; sourceTree = "<group>"; };
 		E054A1911E9B5AB9003A60C8 /* GaussianBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaussianBlurViewController.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 			children = (
 				E0474F201E9CB4CC006BF902 /* CommonTool.h */,
 				E0474F211E9CB4CC006BF902 /* CommonTool.m */,
+				E0474F241E9CDFA5006BF902 /* UIImage+ColorSelect.h */,
+				E0474F251E9CDFA5006BF902 /* UIImage+ColorSelect.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */,
 				E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */,
 				E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */,
+				E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */,
 				E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */,
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,

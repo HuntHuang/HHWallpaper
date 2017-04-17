@@ -63,7 +63,7 @@
 - (void)setBackgroundViewWithImage:(UIImage *)image
 {
     GPUImageGaussianBlurFilter *blurFilter = [[GPUImageGaussianBlurFilter alloc] init];
-    blurFilter.blurRadiusInPixels = 20;
+    blurFilter.blurRadiusInPixels = 18;
     UIImage *blurredImage = [blurFilter imageByFilteringImage:image];
     UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
     [bgImgView setImage:blurredImage];
