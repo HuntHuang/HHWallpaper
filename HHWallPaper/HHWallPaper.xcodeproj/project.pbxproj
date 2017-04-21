@@ -14,6 +14,7 @@
 		E00E37CA1E963A9500FBF01D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37C61E963A9500FBF01D /* main.m */; };
 		E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00E37CF1E963AA800FBF01D /* TemplateViewController.m */; };
 		E00E39301E963AAF00FBF01D /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00E37D41E963AAE00FBF01D /* libGPUImage.a */; };
+		E041667F1EA84C08003BC00C /* MaskLayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E041667E1EA84C08003BC00C /* MaskLayerViewController.m */; };
 		E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E0474F211E9CB4CC006BF902 /* CommonTool.m */; };
 		E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = E0474F251E9CDFA5006BF902 /* UIImage+ColorSelect.m */; };
 		E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */; };
@@ -204,6 +205,8 @@
 		E00E38811E963AAE00FBF01D /* GPUImageWhiteBalanceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageWhiteBalanceFilter.h; sourceTree = "<group>"; };
 		E00E38821E963AAE00FBF01D /* GPUImageXYDerivativeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageXYDerivativeFilter.h; sourceTree = "<group>"; };
 		E00E38831E963AAE00FBF01D /* GPUImageZoomBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageZoomBlurFilter.h; sourceTree = "<group>"; };
+		E041667D1EA84C08003BC00C /* MaskLayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayerViewController.h; sourceTree = "<group>"; };
+		E041667E1EA84C08003BC00C /* MaskLayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskLayerViewController.m; sourceTree = "<group>"; };
 		E0474F1E1E9CB2E9006BF902 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = "Supporting File/PrefixHeader.pch"; sourceTree = "<group>"; };
 		E0474F201E9CB4CC006BF902 /* CommonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTool.h; sourceTree = "<group>"; };
 		E0474F211E9CB4CC006BF902 /* CommonTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTool.m; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */,
 				E054A1941E9B6714003A60C8 /* SquareViewController.h */,
 				E054A1951E9B6714003A60C8 /* SquareViewController.m */,
+				E041667D1EA84C08003BC00C /* MaskLayerViewController.h */,
+				E041667E1EA84C08003BC00C /* MaskLayerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */,
+				E041667F1EA84C08003BC00C /* MaskLayerViewController.m in Sources */,
 				E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */,
 				E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */,
 				E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */,

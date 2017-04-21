@@ -9,6 +9,7 @@
 #import "TemplateViewController.h"
 #import "GaussianBlurViewController.h"
 #import "SquareViewController.h"
+#import "MaskLayerViewController.h"
 #import "QMUICollectionViewPagingLayout.h"
 #import "QDCollectionViewDemoCell.h"
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 @property (nonatomic, strong, readonly) QMUICollectionViewPagingLayout *collectionViewLayout;
 @property (nonatomic, strong) NSArray *sampleArray;
+@property (nonatomic, assign) NSInteger selectItem;
 
 @end
 
@@ -91,8 +93,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    if (indexPath.item == 0)
+    if (indexPath.item == 0 || indexPath.item == 2)
     {
+        _selectItem = indexPath.item;
         UIImagePickerController *pickCtl = [[UIImagePickerController alloc] init];
         pickCtl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         pickCtl.delegate = self;
@@ -112,21 +115,35 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSData *data = UIImageJPEGRepresentation(image, 1);
     UIImage *mainImage = [UIImage imageWithData:data];
-    if (mainImage.size.height > mainImage.size.width)
+    if (_selectItem == 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
-        return;
+        if (mainImage.size.height > mainImage.size.width)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
+        GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:mainImage];
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:mainImage];
-    [self.navigationController pushViewController:vc animated:YES];
+    else
+    {
+        if (mainImage.size.height < mainImage.size.width)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择纵向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
+        MaskLayerViewController *vc = [[MaskLayerViewController alloc] initWithImage:mainImage];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (NSArray *)sampleArray
 {
     if (!_sampleArray)
     {
-        _sampleArray = @[@"Sample1", @"Sample2"];
+        _sampleArray = @[@"Sample1", @"Sample2", @"Sample3"];
     }
     return _sampleArray;
 }
