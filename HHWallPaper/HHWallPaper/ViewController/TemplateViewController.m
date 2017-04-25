@@ -12,8 +12,9 @@
 #import "MaskLayerViewController.h"
 #import "QMUICollectionViewPagingLayout.h"
 #import "QDCollectionViewDemoCell.h"
+#import "LDImagePicker.h"
 
-@interface TemplateViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface TemplateViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LDImagePickerDelegate>
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 @property (nonatomic, strong, readonly) QMUICollectionViewPagingLayout *collectionViewLayout;
@@ -96,10 +97,9 @@
     if (indexPath.item == 0 || indexPath.item == 2)
     {
         _selectItem = indexPath.item;
-        UIImagePickerController *pickCtl = [[UIImagePickerController alloc] init];
-        pickCtl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        pickCtl.delegate = self;
-        [self presentViewController:pickCtl animated:YES completion:nil];
+        LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
+        imagePicker.delegate = self;
+        [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
     }
     else if (indexPath.item == 1)
     {
@@ -108,33 +108,29 @@
     }
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+#pragma mark - LDImagePickerDelegate
+- (void)imagePicker:(LDImagePicker *)imagePicker didFinished:(UIImage *)editedImage
 {
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(image, 1);
-    UIImage *mainImage = [UIImage imageWithData:data];
     if (_selectItem == 0)
     {
-        if (mainImage.size.height > mainImage.size.width)
+        if (editedImage.size.height > editedImage.size.width)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alertView show];
             return;
         }
-        GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:mainImage];
+        GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:editedImage];
         [self.navigationController pushViewController:vc animated:YES];
     }
     else
     {
-        if (mainImage.size.height < mainImage.size.width)
+        if (editedImage.size.height < editedImage.size.width)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择纵向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alertView show];
             return;
         }
-        MaskLayerViewController *vc = [[MaskLayerViewController alloc] initWithImage:mainImage];
+        MaskLayerViewController *vc = [[MaskLayerViewController alloc] initWithImage:editedImage];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

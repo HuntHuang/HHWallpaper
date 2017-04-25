@@ -34,6 +34,9 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
+    [self.view addGestureRecognizer:tap];
+    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
     [backgroundImage setImage:self.mainImage];
     [self.view addSubview:backgroundImage];
@@ -66,6 +69,12 @@
     UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
+}
+
+- (void)onClickedImageView
+{
+    BOOL hidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
 }
 
 @end
