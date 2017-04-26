@@ -99,7 +99,8 @@
         _selectItem = indexPath.item;
         LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
         imagePicker.delegate = self;
-        [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
+        CGFloat height = (indexPath.item == 0) ? 260 : IPhoneHeight;
+        [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, height)];
     }
     else if (indexPath.item == 1)
     {

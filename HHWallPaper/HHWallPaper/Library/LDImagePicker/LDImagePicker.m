@@ -62,7 +62,7 @@
         UIGraphicsEndImageContext();
         // 调整图片角度完毕
     }
-    self.imageCropperController = [[VPImageCropperViewController alloc] initWithImage:image cropFrame:CGRectMake(0, 0, self.cropSize.width, self.cropSize.height) limitScaleRatio:5];
+    self.imageCropperController = [[VPImageCropperViewController alloc] initWithImage:image cropFrame:CGRectMake(0, (ScreenHeight-self.cropSize.height)/2, self.cropSize.width, self.cropSize.height) limitScaleRatio:5];
     self.imageCropperController.delegate = self;
     [picker pushViewController:self.imageCropperController animated:YES];
     
@@ -70,7 +70,8 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:^{}];
-    if (self.delegate) {
+    if ([self.delegate respondsToSelector:@selector(imagePickerDidCancel:)])
+    {
         [self.delegate imagePickerDidCancel:self];
     }
 }
