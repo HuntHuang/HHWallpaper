@@ -23,6 +23,7 @@
 		E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */; };
 		E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */; };
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
+		E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79871EB1880E0055F9C4 /* CustomViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +228,8 @@
 		E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImagePicker.m; sourceTree = "<group>"; };
 		E0EB79801EAF53960055F9C4 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
+		E0EB79861EB1880E0055F9C4 /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
+		E0EB79871EB1880E0055F9C4 /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
 		E2CF7BD9DAEE3703760CCD5A /* libPods-HHWallPaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HHWallPaper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -280,6 +283,8 @@
 				E054A1951E9B6714003A60C8 /* SquareViewController.m */,
 				E041667D1EA84C08003BC00C /* MaskLayerViewController.h */,
 				E041667E1EA84C08003BC00C /* MaskLayerViewController.m */,
+				E0EB79861EB1880E0055F9C4 /* CustomViewController.h */,
+				E0EB79871EB1880E0055F9C4 /* CustomViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */,
 				E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */,
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
+				E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,
 				E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */,
 				E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */,
@@ -821,7 +827,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HHWallPaper/Supporting File/PrefixHeader.pch";
 				INFOPLIST_FILE = "HHWallPaper/Supporting File/HHInfo.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -846,7 +852,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/HHWallPaper/Supporting File/PrefixHeader.pch";
 				INFOPLIST_FILE = "HHWallPaper/Supporting File/HHInfo.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

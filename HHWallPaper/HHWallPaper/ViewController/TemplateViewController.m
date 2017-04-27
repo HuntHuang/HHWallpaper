@@ -10,6 +10,7 @@
 #import "GaussianBlurViewController.h"
 #import "SquareViewController.h"
 #import "MaskLayerViewController.h"
+#import "CustomViewController.h"
 #import "QMUICollectionViewPagingLayout.h"
 #import "QDCollectionViewDemoCell.h"
 #import "LDImagePicker.h"
@@ -107,6 +108,11 @@
         SquareViewController *vc = [[SquareViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    else if (indexPath.item == 3)
+    {
+        CustomViewController *vc = [[CustomViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - LDImagePickerDelegate
@@ -114,23 +120,11 @@
 {
     if (_selectItem == 0)
     {
-        if (editedImage.size.height > editedImage.size.width)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择横向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            [alertView show];
-            return;
-        }
         GaussianBlurViewController *vc = [[GaussianBlurViewController alloc] initWithImage:editedImage];
         [self.navigationController pushViewController:vc animated:YES];
     }
     else
     {
-        if (editedImage.size.height < editedImage.size.width)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择纵向图片" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            [alertView show];
-            return;
-        }
         MaskLayerViewController *vc = [[MaskLayerViewController alloc] initWithImage:editedImage];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -140,7 +134,7 @@
 {
     if (!_sampleArray)
     {
-        _sampleArray = @[@"Sample1", @"Sample2", @"Sample3"];
+        _sampleArray = @[@"Sample1", @"Sample2", @"Sample3", @"Sample4"];
     }
     return _sampleArray;
 }
