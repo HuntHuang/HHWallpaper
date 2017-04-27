@@ -295,10 +295,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint tempPoint = [touch locationInView:_paletteView];
     self.mainColor = [_paletteView.image colorAtPixel:tempPoint];
-    [_dock setBackgroundColor:self.mainColor];
-    for (UIImageView *appIcon in self.iconArray)
     {
-        appIcon.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
     }
 }
 
