@@ -115,17 +115,26 @@
 
 - (void)onClickedPaletteView
 {
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
-    [self.view addSubview:backgroundView];
-    _coverView = backgroundView;
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(50, 300, 300, 300)];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:whiteView];
+    _coverView = whiteView;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removePaletteView)];
-    [_coverView addGestureRecognizer:tap];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 300-50, 300, 50)];
+    [btn setTitle:@"确定" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(removePaletteView) forControlEvents:UIControlEventTouchUpInside];
+    [_coverView addSubview:btn];
     
-    UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 250, 240, 240)];
+    UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 240, 240)];
     [paletteView setImage:[UIImage imageNamed:@"pickerColorWheel"]];
+    paletteView.multipleTouchEnabled = YES;
+    paletteView.userInteractionEnabled = YES;
     [_coverView addSubview:paletteView];
     _paletteView = paletteView;
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePalettePan:)];
+    [_paletteView addGestureRecognizer:pan];
 }
 
 - (void)removePaletteView
@@ -220,9 +229,6 @@
 
 - (void)setupAppIconWithRow:(NSInteger)row
 {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickedImageView)];
-    [self.view addGestureRecognizer:tap];
-    
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < row; j++)
@@ -301,10 +307,9 @@
 //    _dock = dock;
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)handlePalettePan:(UIPanGestureRecognizer *)pan
 {
-    UITouch *touch = [touches anyObject];
-    CGPoint tempPoint = [touch locationInView:_paletteView];
+    CGPoint tempPoint = [pan locationInView:_paletteView];
     self.mainColor = [_paletteView.image colorAtPixel:tempPoint];
     if (self.mainColor != nil)
     {
