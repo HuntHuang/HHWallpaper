@@ -21,7 +21,7 @@
 
 @property (nonatomic, weak) UIView *toolBarView;
 @property (nonatomic, weak) UIView *dock;
-@property (nonatomic, weak) UIView *backgroundView;
+@property (nonatomic, weak) UIView *coverView;
 @property (nonatomic, weak) UIImageView *paletteView;
 @property (nonatomic, strong) UIColor *mainColor;
 @property (nonatomic, strong) NSMutableArray *iconArray;
@@ -117,20 +117,20 @@
 {
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
     [self.view addSubview:backgroundView];
-    _backgroundView = backgroundView;
+    _coverView = backgroundView;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removePaletteView)];
-    [_backgroundView addGestureRecognizer:tap];
+    [_coverView addGestureRecognizer:tap];
     
     UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 250, 240, 240)];
     [paletteView setImage:[UIImage imageNamed:@"pickerColorWheel"]];
-    [_backgroundView addSubview:paletteView];
+    [_coverView addSubview:paletteView];
     _paletteView = paletteView;
 }
 
 - (void)removePaletteView
 {
-    [_backgroundView removeFromSuperview];
+    [_coverView removeFromSuperview];
 }
 
 - (void)setBackgroundViewWithImage:(UIImage *)image
@@ -232,12 +232,21 @@
             CGFloat yMargin    = j > 0 ? 42 : 40;
             CGFloat xPosition  = xMargin*(i+1) + iconLength*i;
             CGFloat yPosition  = yMargin*(j+1) + iconLength*j;
-            UIImageView *appIcon = [[UIImageView alloc] initWithFrame:CGRectMake(xPosition, yPosition, iconLength, iconLength)];
-            [appIcon setImage:[UIImage imageNamed:@"appIcon"]];
-            appIcon.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
-            appIcon.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
-            appIcon.layer.shadowOpacity = 1;//阴影透明度，默认0
-            appIcon.layer.shadowRadius = 3;//阴影半径，默认3
+            CGRect rect = CGRectMake(xPosition, yPosition, iconLength, iconLength);
+            UIImage *shotImage = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
+            UIImage *afterImage = [shotImage qmui_imageWithClippedRect:rect];
+            UIImageView *appIcon = [[UIImageView alloc] initWithFrame:rect];
+            [appIcon setImage:afterImage];
+            appIcon.layer.masksToBounds = YES;
+            appIcon.layer.cornerRadius = 10;
+            
+            UIView *shadow = [[UIView alloc] initWithFrame:rect];
+            appIcon.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
+            shadow.layer.cornerRadius = 10;
+            shadow.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
+            shadow.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
+            shadow.layer.shadowOpacity = 1;//阴影透明度，默认0
+            shadow.layer.shadowRadius = 3;//阴影半径，默认3
             
             float width = appIcon.bounds.size.width;
             float height = appIcon.bounds.size.height;
@@ -277,9 +286,11 @@
                          controlPoint:leftMiddle];
             
             //设置阴影路径
-            appIcon.layer.shadowPath = path.CGPath;
-            [self.view addSubview:appIcon];
-            [self.iconArray addObject:appIcon];
+            shadow.layer.shadowPath = path.CGPath;
+            [shadow addSubview:appIcon];
+
+            [self.view addSubview:shadow];
+            [self.iconArray addObject:shadow];
         }
     }
     
