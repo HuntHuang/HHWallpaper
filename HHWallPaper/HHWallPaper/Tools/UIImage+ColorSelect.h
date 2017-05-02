@@ -12,5 +12,6 @@
 
 - (UIColor *)colorAtPixel:(CGPoint)point;
 
+- (CGSize)getNewSizeInMultiple:(NSInteger)multiple;
 
 @end

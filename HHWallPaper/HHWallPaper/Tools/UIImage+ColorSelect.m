@@ -50,4 +50,23 @@
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
+- (CGSize)getNewSizeInMultiple:(NSInteger)multiple
+{
+    CGFloat scale;
+    CGSize newsize = self.size;
+    if (newsize.height < newsize.width)
+    {
+        scale = self.size.height / self.size.width;
+        newsize.width  = multiple;
+        newsize.height = multiple * scale;
+    }
+    else
+    {
+        scale = self.size.width / self.size.height;
+        newsize.height = multiple;
+        newsize.width  = multiple *scale;
+    }
+    return newsize;
+}
+
 @end

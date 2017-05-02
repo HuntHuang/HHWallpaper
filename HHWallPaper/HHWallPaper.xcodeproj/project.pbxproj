@@ -20,10 +20,12 @@
 		E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */; };
 		E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */; };
 		E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E054A1951E9B6714003A60C8 /* SquareViewController.m */; };
+		E0A7B86E1EB8629800E11894 /* HHIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A7B86D1EB8629800E11894 /* HHIconView.m */; };
 		E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */; };
 		E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */; };
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
 		E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79871EB1880E0055F9C4 /* CustomViewController.m */; };
+		E0EB799A1EB33CBD0055F9C4 /* HHMainImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,6 +223,8 @@
 		E054A1921E9B5AB9003A60C8 /* GaussianBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaussianBlurViewController.m; sourceTree = "<group>"; };
 		E054A1941E9B6714003A60C8 /* SquareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareViewController.h; sourceTree = "<group>"; };
 		E054A1951E9B6714003A60C8 /* SquareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareViewController.m; sourceTree = "<group>"; };
+		E0A7B86C1EB8629800E11894 /* HHIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHIconView.h; sourceTree = "<group>"; };
+		E0A7B86D1EB8629800E11894 /* HHIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHIconView.m; sourceTree = "<group>"; };
 		E0C4C92D1E94D92D00A4E7FC /* HHWallPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHWallPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4C9331E94D92D00A4E7FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 		E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		E0EB79861EB1880E0055F9C4 /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
 		E0EB79871EB1880E0055F9C4 /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
+		E0EB79981EB33CBD0055F9C4 /* HHMainImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMainImageView.h; sourceTree = "<group>"; };
+		E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHMainImageView.m; sourceTree = "<group>"; };
 		E2CF7BD9DAEE3703760CCD5A /* libPods-HHWallPaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HHWallPaper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -518,6 +524,10 @@
 			children = (
 				E054A18E1E977CA9003A60C8 /* QDCollectionViewDemoCell.h */,
 				E054A18F1E977CA9003A60C8 /* QDCollectionViewDemoCell.m */,
+				E0EB79981EB33CBD0055F9C4 /* HHMainImageView.h */,
+				E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */,
+				E0A7B86C1EB8629800E11894 /* HHIconView.h */,
+				E0A7B86D1EB8629800E11894 /* HHIconView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -709,6 +719,8 @@
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
 				E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,
+				E0A7B86E1EB8629800E11894 /* HHIconView.m in Sources */,
+				E0EB799A1EB33CBD0055F9C4 /* HHMainImageView.m in Sources */,
 				E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */,
 				E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */,
 				E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */,

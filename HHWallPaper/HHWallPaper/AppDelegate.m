@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "TemplateViewController.h"
+#import "CustomViewController.h"
 #import "QMUIConfigurationTemplate.h"
 
 @interface AppDelegate ()
@@ -23,7 +23,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    TemplateViewController *vc = [[TemplateViewController alloc] init];
+    CustomViewController *vc = [[CustomViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
