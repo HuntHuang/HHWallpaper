@@ -15,19 +15,20 @@
 
 @implementation HHIconView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame view:(UIView *)view
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        [self setupAppIconWithCGRect:frame];
+        [self setupAppIconWithView:view CGRect:frame];
     }
     return self;
 }
 
-- (void)setupAppIconWithCGRect:(CGRect)rect
+- (void)setupAppIconWithView:(UIView *)view
+                      CGRect:(CGRect)rect
 {
-    UIImage *shotImage = [UIImage qmui_imageWithView:[[UIApplication sharedApplication] keyWindow] afterScreenUpdates:YES];
+    UIImage *shotImage = [UIImage qmui_imageWithView:view afterScreenUpdates:YES];
     UIImage *afterImage = [shotImage qmui_imageWithClippedRect:rect];
     UIImageView *appIcon = [[UIImageView alloc] initWithFrame:rect];
     [appIcon setImage:afterImage];
@@ -37,7 +38,7 @@
     self.frame = rect;
     appIcon.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
     self.layer.cornerRadius = 10;
-    self.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
+    self.layer.shadowColor = [UIColor redColor].CGColor;//shadowColor阴影颜色
     self.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
     self.layer.shadowOpacity = 1;//阴影透明度，默认0
     self.layer.shadowRadius = 3;//阴影半径，默认3

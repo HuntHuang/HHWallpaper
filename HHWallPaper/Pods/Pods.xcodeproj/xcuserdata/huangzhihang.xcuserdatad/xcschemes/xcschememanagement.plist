@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>FlatUIKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-HHWallPaper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1246B81E2DDF0267C5C0ABE9B8829386</key>
+		<key>3E12FCDABAF99FC7DE7EA9E26EE95FA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>12F779D7C521FE9550C6C0AF57128523</key>
+		<key>A33837139A87D4F017582BFD6FE82B23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCB79BB2136E5E25F0646C96BB6BC2A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -12,9 +12,11 @@
 #import "QMUITextField.h"
 #import "HHMainImageView.h"
 #import "HHIconView.h"
+#import "HHButton.h"
 #import "GPUImage.h"
 #import "UIImage+QMUI.h"
 #import "UIImage+ColorSelect.h"
+#import "FlatUIKit.h"
 #import "CommonTool.h"
 #import "QMUITips.h"
 #import "LDImagePicker.h"
@@ -39,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor cloudsColor];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [self setupToolBar];
@@ -59,31 +61,23 @@
     [self.view addSubview:toolView];
     _toolBarView = toolView;
     
-    UIButton *backgroundBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 80, 40)];
+    HHButton *backgroundBtn = [[HHButton alloc] initWithFrame:CGRectMake(10, 0, 80, 40)];
     [backgroundBtn setTitle:@"设置背景" forState:UIControlStateNormal];
-    [backgroundBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [backgroundBtn addTarget:self action:@selector(onClickBackground) forControlEvents:UIControlEventTouchUpInside];
     [_toolBarView addSubview:backgroundBtn];
     
-    UIButton *mainImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 0, 80, 40)];
+    HHButton *mainImageBtn = [[HHButton alloc] initWithFrame:CGRectMake(100, 0, 80, 40)];
     [mainImageBtn setTitle:@"设置小图" forState:UIControlStateNormal];
-    [mainImageBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [mainImageBtn addTarget:self action:@selector(onClickMainImage) forControlEvents:UIControlEventTouchUpInside];
     [_toolBarView addSubview:mainImageBtn];
     
-    UIButton *iconBtn = [[UIButton alloc] initWithFrame:CGRectMake(190, 0, 80, 40)];
+    HHButton *iconBtn = [[HHButton alloc] initWithFrame:CGRectMake(190, 0, 80, 40)];
     [iconBtn setTitle:@"特效icon" forState:UIControlStateNormal];
-    [iconBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [iconBtn addTarget:self action:@selector(onClickIcon) forControlEvents:UIControlEventTouchUpInside];
     [_toolBarView addSubview:iconBtn];
     
-    UIButton *paletteBtn = [[UIButton alloc] initWithFrame:CGRectMake(280, 0, 40, 40)];
-    [paletteBtn setImage:[UIImage imageNamed:@"palette"] forState:UIControlStateNormal];
-    [paletteBtn addTarget:self action:@selector(onClickedPaletteView) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBarView addSubview:paletteBtn];
-    
-    UIButton *saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(330, 0, 40, 40)];
-    [saveBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+    HHButton *saveBtn = [[HHButton alloc] initWithFrame:CGRectMake(280, 0, 80, 40)];
+    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     [saveBtn addTarget:self action:@selector(onClickedSave) forControlEvents:UIControlEventTouchUpInside];
     [_toolBarView addSubview:saveBtn];
 }
@@ -105,6 +99,9 @@
     slider.minimumValue = 0;
     slider.value = 0;
     slider.continuous = YES;
+    [slider configureFlatSliderWithTrackColor:[UIColor silverColor]
+                                progressColor:[UIColor alizarinColor]
+                                   thumbColor:[UIColor pomegranateColor]];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:slider];
     _blurSlider = slider;
@@ -130,61 +127,8 @@
             CGFloat xPosition  = xMargin*(i+1) + iconLength*i;
             CGFloat yPosition  = yMargin*(j+1) + iconLength*j;
             CGRect rect = CGRectMake(xPosition, yPosition, iconLength, iconLength);
-            UIImage *shotImage = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
-            UIImage *afterImage = [shotImage qmui_imageWithClippedRect:rect];
-            UIImageView *appIcon = [[UIImageView alloc] initWithFrame:rect];
-            [appIcon setImage:afterImage];
-            appIcon.layer.masksToBounds = YES;
-            appIcon.layer.cornerRadius = 10;
-            
-            UIView *shadow = [[UIView alloc] initWithFrame:rect];
-            appIcon.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
-            shadow.layer.cornerRadius = 10;
-            shadow.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
-            shadow.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移，默认(0, -3),这个跟shadowRadius配合使用
-            shadow.layer.shadowOpacity = 1;//阴影透明度，默认0
-            shadow.layer.shadowRadius = 3;//阴影半径，默认3
-            
-            float width = appIcon.bounds.size.width;
-            float height = appIcon.bounds.size.height;
-            float x = appIcon.bounds.origin.x;
-            float y = appIcon.bounds.origin.y;
-            float addWH = 10;
-            
-            CGPoint topLeft      = appIcon.bounds.origin;
-            CGPoint topRight     = CGPointMake(x+width,y);
-            CGPoint topMiddle    = CGPointMake(x+(width/2),y-addWH);
-            
-            CGPoint rightMiddle  = CGPointMake(x+width+addWH,y+(height/2));
-            
-            CGPoint bottomRight  = CGPointMake(x+width,y+height);
-            CGPoint bottomMiddle = CGPointMake(x+(width/2),y+height+addWH);
-            CGPoint bottomLeft   = CGPointMake(x,y+height);
-            
-            CGPoint leftMiddle = CGPointMake(x-addWH,y+(height/2));
-            CGPoint lddRight = CGPointMake(x+width, y+height);
-            
-            UIBezierPath *path = [UIBezierPath bezierPath];
-            [path moveToPoint:topLeft];
-            //添加四个二元曲线
-            [path addQuadCurveToPoint:topRight
-                         controlPoint:topMiddle];
-            
-            [path addQuadCurveToPoint:topRight
-                         controlPoint:lddRight];
-            
-            [path addQuadCurveToPoint:bottomRight
-                         controlPoint:rightMiddle];
-            
-            [path addQuadCurveToPoint:bottomLeft
-                         controlPoint:bottomMiddle];
-            
-            [path addQuadCurveToPoint:topLeft
-                         controlPoint:leftMiddle];
-            
-            //设置阴影路径
-            shadow.layer.shadowPath = path.CGPath;
-            [shadow addSubview:appIcon];
+            HHIconView *shadow = [[HHIconView alloc] init];
+            [shadow setupAppIconWithView:self.view CGRect:rect];
             [self.view addSubview:shadow];
             [self.iconArray addObject:shadow];
         }
@@ -226,9 +170,10 @@
 
 - (void)onClickMainImage
 {
+    [_blurSlider removeFromSuperview];
     LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
     imagePicker.delegate = self;
-    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, 260)];
+    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, 280)];
 }
 
 - (void)onClickedSave

@@ -26,6 +26,7 @@
 		E0A7B87C1EB8904600E11894 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A7B87B1EB8904600E11894 /* CoreVideo.framework */; };
 		E0A7B87E1EB8904D00E11894 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A7B87D1EB8904D00E11894 /* CoreMedia.framework */; };
 		E0A7B92E1EB8912000E11894 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A7B92D1EB8912000E11894 /* libGPUImage.a */; };
+		E0A7B9311EB9CD4C00E11894 /* HHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A7B9301EB9CD4C00E11894 /* HHButton.m */; };
 		E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */; };
 		E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */; };
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
@@ -235,6 +236,8 @@
 		E0A7B9291EB890BA00E11894 /* GPUImageXYDerivativeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageXYDerivativeFilter.h; sourceTree = "<group>"; };
 		E0A7B92A1EB890BA00E11894 /* GPUImageZoomBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageZoomBlurFilter.h; sourceTree = "<group>"; };
 		E0A7B92D1EB8912000E11894 /* libGPUImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGPUImage.a; path = HHWallPaper/Library/GPUImage/libGPUImage.a; sourceTree = "<group>"; };
+		E0A7B92F1EB9CD4C00E11894 /* HHButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHButton.h; sourceTree = "<group>"; };
+		E0A7B9301EB9CD4C00E11894 /* HHButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHButton.m; sourceTree = "<group>"; };
 		E0C4C92D1E94D92D00A4E7FC /* HHWallPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHWallPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4C9331E94D92D00A4E7FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 				E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */,
 				E0A7B86C1EB8629800E11894 /* HHIconView.h */,
 				E0A7B86D1EB8629800E11894 /* HHIconView.m */,
+				E0A7B92F1EB9CD4C00E11894 /* HHButton.h */,
+				E0A7B9301EB9CD4C00E11894 /* HHButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -719,6 +724,7 @@
 				E0EB799A1EB33CBD0055F9C4 /* HHMainImageView.m in Sources */,
 				E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */,
 				E054A1961E9B6714003A60C8 /* SquareViewController.m in Sources */,
+				E0A7B9311EB9CD4C00E11894 /* HHButton.m in Sources */,
 				E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

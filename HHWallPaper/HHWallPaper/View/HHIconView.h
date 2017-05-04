@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) UIColor *mainColor;
 
+- (instancetype)initWithFrame:(CGRect)frame view:(UIView *)view;
+
+//- (void)setupAppIconWithView:(UIView *)view
+//                      CGRect:(CGRect)rect;
 @end
