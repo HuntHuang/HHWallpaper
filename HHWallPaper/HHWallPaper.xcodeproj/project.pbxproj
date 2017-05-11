@@ -28,6 +28,9 @@
 		E0A7B92E1EB8912000E11894 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A7B92D1EB8912000E11894 /* libGPUImage.a */; };
 		E0A7B9311EB9CD4C00E11894 /* HHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A7B9301EB9CD4C00E11894 /* HHButton.m */; };
 		E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */; };
+		E0CB84B71EC4543200689D73 /* HHPaletteView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84B61EC4543200689D73 /* HHPaletteView.m */; };
+		E0CB84BA1EC459AB00689D73 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84B91EC459AB00689D73 /* UIView+Layout.m */; };
+		E0CB84BD1EC4646300689D73 /* HHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84BC1EC4646300689D73 /* HHAlertView.m */; };
 		E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */; };
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
 		E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79871EB1880E0055F9C4 /* CustomViewController.m */; };
@@ -241,6 +244,12 @@
 		E0C4C92D1E94D92D00A4E7FC /* HHWallPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHWallPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4C9331E94D92D00A4E7FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E0C4C9341E94D92D00A4E7FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E0CB84B51EC4543200689D73 /* HHPaletteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPaletteView.h; sourceTree = "<group>"; };
+		E0CB84B61EC4543200689D73 /* HHPaletteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHPaletteView.m; sourceTree = "<group>"; };
+		E0CB84B81EC459AB00689D73 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
+		E0CB84B91EC459AB00689D73 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		E0CB84BB1EC4646300689D73 /* HHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHAlertView.h; sourceTree = "<group>"; };
+		E0CB84BC1EC4646300689D73 /* HHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHAlertView.m; sourceTree = "<group>"; };
 		E0EB797E1EAF53960055F9C4 /* LDImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDImagePicker.h; sourceTree = "<group>"; };
 		E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImagePicker.m; sourceTree = "<group>"; };
 		E0EB79801EAF53960055F9C4 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
@@ -514,6 +523,8 @@
 				E0474F211E9CB4CC006BF902 /* CommonTool.m */,
 				E0474F241E9CDFA5006BF902 /* UIImage+ColorSelect.h */,
 				E0474F251E9CDFA5006BF902 /* UIImage+ColorSelect.m */,
+				E0CB84B81EC459AB00689D73 /* UIView+Layout.h */,
+				E0CB84B91EC459AB00689D73 /* UIView+Layout.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -529,6 +540,10 @@
 				E0A7B86D1EB8629800E11894 /* HHIconView.m */,
 				E0A7B92F1EB9CD4C00E11894 /* HHButton.h */,
 				E0A7B9301EB9CD4C00E11894 /* HHButton.m */,
+				E0CB84B51EC4543200689D73 /* HHPaletteView.h */,
+				E0CB84B61EC4543200689D73 /* HHPaletteView.m */,
+				E0CB84BB1EC4646300689D73 /* HHAlertView.h */,
+				E0CB84BC1EC4646300689D73 /* HHAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -714,10 +729,13 @@
 				E054A1931E9B5AB9003A60C8 /* GaussianBlurViewController.m in Sources */,
 				E041667F1EA84C08003BC00C /* MaskLayerViewController.m in Sources */,
 				E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */,
+				E0CB84BD1EC4646300689D73 /* HHAlertView.m in Sources */,
 				E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */,
+				E0CB84B71EC4543200689D73 /* HHPaletteView.m in Sources */,
 				E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */,
 				E054A1901E977CA9003A60C8 /* QDCollectionViewDemoCell.m in Sources */,
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
+				E0CB84BA1EC459AB00689D73 /* UIView+Layout.m in Sources */,
 				E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,
 				E0A7B86E1EB8629800E11894 /* HHIconView.m in Sources */,

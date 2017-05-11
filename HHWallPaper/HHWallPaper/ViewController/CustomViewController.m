@@ -7,12 +7,11 @@
 //
 
 #import "CustomViewController.h"
-#import "QMUIModalPresentationViewController.h"
-#import "QMUIDialogViewController.h"
-#import "QMUITextField.h"
 #import "HHMainImageView.h"
 #import "HHIconView.h"
 #import "HHButton.h"
+#import "HHPaletteView.h"
+#import "HHAlertView.h"
 #import "GPUImage.h"
 #import "UIImage+QMUI.h"
 #import "UIImage+ColorSelect.h"
@@ -25,14 +24,10 @@
 
 @property (nonatomic, weak) UIView *toolBarView;
 @property (nonatomic, weak) UIView *dock;
-@property (nonatomic, weak) UIView *coverView;
-@property (nonatomic, weak) UIImageView *paletteView;
 @property (nonatomic, weak) UISlider *blurSlider;
-@property (nonatomic, strong) UIColor *mainColor;
-@property (nonatomic, strong) NSMutableArray *iconArray;
+@property (nonatomic, strong) NSArray *iconArray;
 @property (nonatomic, strong) GPUImageGaussianBlurFilter *blurFilter;
 @property (nonatomic, strong) GPUImagePicture *staticPicture;
-@property (nonatomic, copy) NSString *row;
 
 @end
 
@@ -51,7 +46,6 @@
 {
     _blurFilter = nil;
     _staticPicture = nil;
-    _mainColor = nil;
     _iconArray = nil;
 }
 
@@ -117,6 +111,15 @@
 
 - (void)setupAppIconWithRow:(NSInteger)row
 {
+    if (self.iconArray.count > 0)
+    {
+        for (HHIconView *iconView in self.iconArray)
+        {
+            [iconView removeFromSuperview];
+        }
+        self.iconArray = nil;
+    }
+    NSMutableArray *mArray = [NSMutableArray array];
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < row; j++)
@@ -128,11 +131,12 @@
             CGFloat yPosition  = yMargin*(j+1) + iconLength*j;
             CGRect rect = CGRectMake(xPosition, yPosition, iconLength, iconLength);
             HHIconView *shadow = [[HHIconView alloc] init];
-            [shadow setupAppIconWithView:self.view CGRect:rect];
+            [shadow setupAppIconWithView:self.view rect:rect];
             [self.view addSubview:shadow];
-            [self.iconArray addObject:shadow];
+            [mArray addObject:shadow];
         }
     }
+    self.iconArray = [mArray copy];
     
     //    CGFloat dockHeight = 96;
     //    UIView *dock = [[UIView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - dockHeight, IPhoneWidth, dockHeight)];
@@ -144,21 +148,11 @@
 #pragma mark - target action
 - (void)onClickIcon
 {
-    QMUIDialogTextFieldViewController *dialogViewController = [[QMUIDialogTextFieldViewController alloc] init];
-    dialogViewController.title = @"请输入icon行数";
-    dialogViewController.textField.placeholder = @"6";
-    dialogViewController.textField.maximumTextLength = 1;
-    [dialogViewController addCancelButtonWithText:@"取消" block:nil];
-    dialogViewController.shouldEnableSubmitButtonBlock = ^BOOL(QMUIDialogTextFieldViewController *aDialogViewController) {
-        _row = aDialogViewController.textField.text;
-        return aDialogViewController.textField.text.length == aDialogViewController.textField.maximumTextLength;
-    };
-    [dialogViewController addSubmitButtonWithText:@"确定" block:^(QMUIDialogViewController *aDialogViewController) {
-        [aDialogViewController hide];
-        [self setupAppIconWithRow:[_row integerValue]];
-        [self onClickedPaletteView];
+    HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
+        [self setupAppIconWithRow:[textString integerValue]];
+        [self showPaletteView];
     }];
-    [dialogViewController show];
+    [alertView show];
 }
 
 - (void)onClickBackground
@@ -194,53 +188,23 @@
     [self.navigationController setNavigationBarHidden:!hidden animated:YES];
 }
 
-- (void)onClickedPaletteView
+- (void)showPaletteView
 {
-    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(50, 300, 300, 300)];
-    whiteView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:whiteView];
-    _coverView = whiteView;
-    
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 300-50, 300, 50)];
-    [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(removePaletteView) forControlEvents:UIControlEventTouchUpInside];
-    [_coverView addSubview:btn];
-    
-    UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 240, 240)];
-    [paletteView setImage:[UIImage imageNamed:@"pickerColorWheel"]];
-    paletteView.multipleTouchEnabled = YES;
-    paletteView.userInteractionEnabled = YES;
-    [_coverView addSubview:paletteView];
-    _paletteView = paletteView;
-    
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePalettePan:)];
-    [_paletteView addGestureRecognizer:pan];
+    HHPaletteView *paletteView = [[HHPaletteView alloc] initWithFrame:CGRectMake(0, IPhoneHeight, IPhoneWidth, 300)];
+    paletteView.panGesturesCallBack = ^(UIColor *mainColor)
+    {
+        for (UIImageView *appIcon in self.iconArray)
+        {
+            appIcon.layer.shadowColor = mainColor.CGColor;
+        }
+    };
+    [self.view addSubview:paletteView];
 }
 
 - (void)sliderValueChanged:(UISlider *)sender
 {
     [_blurFilter setBlurRadiusInPixels:sender.value];
     [_staticPicture processImage];
-}
-
-- (void)removePaletteView
-{
-    [_coverView removeFromSuperview];
-}
-
-- (void)handlePalettePan:(UIPanGestureRecognizer *)pan
-{
-    CGPoint tempPoint = [pan locationInView:_paletteView];
-    self.mainColor = [_paletteView.image colorAtPixel:tempPoint];
-    if (self.mainColor != nil)
-    {
-        [_dock setBackgroundColor:self.mainColor];
-        for (UIImageView *appIcon in self.iconArray)
-        {
-            appIcon.layer.shadowColor = self.mainColor.CGColor;//shadowColor阴影颜色
-        }
-    }
 }
 
 #pragma mark - LDImagePickerDelegate
@@ -256,11 +220,11 @@
     }
 }
 
-- (NSMutableArray *)iconArray
+- (NSArray *)iconArray
 {
     if (!_iconArray)
     {
-        _iconArray = [NSMutableArray array];
+        _iconArray = [NSArray array];
     }
     return _iconArray;
 }

@@ -90,7 +90,7 @@
         [self.textFields addObject:secureTextField];
         [alertContentContainer addSubview:secureTextField];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
     }
     return self;
 }
@@ -120,10 +120,10 @@
     return self;
 }
 
-- (void)keyboardWillShow
-{
-    [self.alertContainer setTransform:CGAffineTransformMakeTranslation(0, - self.alertContainer.frame.origin.y + [[UIApplication sharedApplication] statusBarFrame].size.height)];
-}
+//- (void)keyboardWillShow
+//{
+//    [self.alertContainer setTransform:CGAffineTransformMakeTranslation(0, - self.alertContainer.frame.origin.y + [[UIApplication sharedApplication] statusBarFrame].size.height)];
+//}
 
 - (void) layoutSubviews {
     [super layoutSubviews];

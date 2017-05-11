@@ -80,6 +80,12 @@
     self.layer.shadowPath = path.CGPath;
 }
 
+- (void)layoutSubviews
+{
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(removeFromSuperview)];
+    [self addGestureRecognizer:gesture];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //保存触摸起始点位置

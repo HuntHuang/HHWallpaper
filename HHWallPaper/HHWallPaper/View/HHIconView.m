@@ -9,24 +9,10 @@
 #import "HHIconView.h"
 #import "UIImage+QMUI.h"
 
-@interface HHIconView ()
-
-@end
-
 @implementation HHIconView
 
-- (instancetype)initWithFrame:(CGRect)frame view:(UIView *)view
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        [self setupAppIconWithView:view CGRect:frame];
-    }
-    return self;
-}
-
 - (void)setupAppIconWithView:(UIView *)view
-                      CGRect:(CGRect)rect
+                        rect:(CGRect)rect
 {
     UIImage *shotImage = [UIImage qmui_imageWithView:view afterScreenUpdates:YES];
     UIImage *afterImage = [shotImage qmui_imageWithClippedRect:rect];
@@ -43,10 +29,10 @@
     self.layer.shadowOpacity = 1;//阴影透明度，默认0
     self.layer.shadowRadius = 3;//阴影半径，默认3
     
-    float width = appIcon.bounds.size.width;
-    float height = appIcon.bounds.size.height;
-    float x = appIcon.bounds.origin.x;
-    float y = appIcon.bounds.origin.y;
+    float width = appIcon.width;
+    float height = appIcon.height;
+    float x = appIcon.xPosition;
+    float y = appIcon.yPosition;
     float addWH = 10;
     
     CGPoint topLeft      = appIcon.bounds.origin;

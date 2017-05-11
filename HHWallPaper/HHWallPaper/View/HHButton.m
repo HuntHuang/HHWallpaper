@@ -23,7 +23,7 @@
 - (void)setupButton
 {
     self.titleLabel.font = [UIFont systemFontOfSize:13];
-    self.buttonColor = [UIColor turquoiseColor];
+    self.buttonColor = [UIColor alizarinColor];
     self.shadowColor = [UIColor greenSeaColor];
     self.shadowHeight = 3.0f;
     self.cornerRadius = 6.0f;
