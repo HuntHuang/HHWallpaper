@@ -21,14 +21,14 @@
 
 - (void)layoutSubviews
 {
-    self.backgroundColor = [UIColor silverColor];
+    self.backgroundColor = [UIColor concreteColor];
     
-    HHButton *sureBtn = [[HHButton alloc] initWithFrame:CGRectMake(self.width - 40, 5, 30, 30)];
+    HHButton *sureBtn = [[HHButton alloc] initWithFrame:CGRectMake(self.width - 40, 10, 30, 30)];
     [sureBtn setBackgroundImage:[UIImage imageNamed:@"sure"] forState:UIControlStateNormal];
     [sureBtn addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:sureBtn];
     
-    HHButton *closeBtn = [[HHButton alloc] initWithFrame:CGRectMake(5, 5, 30, 30)];
+    HHButton *closeBtn = [[HHButton alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
     [closeBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeBtn];

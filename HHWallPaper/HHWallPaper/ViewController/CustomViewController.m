@@ -13,6 +13,7 @@
 #import "HHPaletteView.h"
 #import "HHAlertView.h"
 #import "HHSliderView.h"
+#import "HHToolView.h"
 #import "GPUImage.h"
 #import "UIImage+QMUI.h"
 #import "UIImage+ColorSelect.h"
@@ -23,7 +24,6 @@
 
 @interface CustomViewController ()<LDImagePickerDelegate>
 
-@property (nonatomic, weak) UIView *toolBarView;
 @property (nonatomic, weak) GPUImageView *backgroundView;
 @property (nonatomic, strong) NSArray *iconArray;
 @property (nonatomic, strong) GPUImageGaussianBlurFilter *blurFilter;
@@ -51,73 +51,71 @@
 
 - (void)setupToolBar
 {
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - 50, IPhoneWidth, 50)];
+    __weak __typeof(self)weakSelf = self;
+    HHToolView *toolView = [[HHToolView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - 50, IPhoneWidth, 50)];
+    toolView.buttonCallback = ^(NSInteger tag, UIView *toolBarView)
+    {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        switch (tag)
+        {
+            case 0:
+            {
+                LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
+                imagePicker.delegate = strongSelf;
+                [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:strongSelf cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
+            }
+                break;
+                
+            case 1:
+            {
+                HHPaletteView *paletteView = [[HHPaletteView alloc] initWithFrame:CGRectMake(0, IPhoneHeight, IPhoneWidth, 300)];
+                paletteView.panGesturesCallBack = ^(UIColor *mainColor)
+                {
+                    strongSelf.view.backgroundColor = mainColor;
+                };
+                [strongSelf.view addSubview:paletteView];
+            }
+                break;
+            
+            case 2:
+            {
+                LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
+                imagePicker.delegate = strongSelf;
+                [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:strongSelf cropSize:CGSizeMake(IPhoneWidth, 280)];
+            }
+                break;
+                
+            case 3:
+            {
+                HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
+                    [strongSelf setupAppIconWithRow:[textString integerValue]];
+                    [strongSelf showPaletteView];
+                }];
+                [alertView show];
+            }
+                break;
+                
+            case 4:
+            {
+                [toolBarView setHidden:YES];
+                [strongSelf.navigationController setNavigationBarHidden:YES animated:YES];
+                UIImage *image = [UIImage qmui_imageWithView:strongSelf.view afterScreenUpdates:YES];
+                UIImageWriteToSavedPhotosAlbum(image, strongSelf, nil, nil);
+                [QMUITips showSucceed:@"保存成功" inView:strongSelf.view hideAfterDelay:2];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [toolBarView setHidden:NO];
+                });
+            }
+                break;
+                
+            default:
+                break;
+        }
+    };
     [self.view addSubview:toolView];
-    _toolBarView = toolView;
-    
-    HHButton *backgroundBtn = [[HHButton alloc] initWithFrame:CGRectMake(10, 0, 80, 40)];
-    [backgroundBtn setTitle:@"设置背景" forState:UIControlStateNormal];
-    [backgroundBtn addTarget:self action:@selector(onClickBackground) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBarView addSubview:backgroundBtn];
-    
-    HHButton *mainImageBtn = [[HHButton alloc] initWithFrame:CGRectMake(100, 0, 80, 40)];
-    [mainImageBtn setTitle:@"设置小图" forState:UIControlStateNormal];
-    [mainImageBtn addTarget:self action:@selector(onClickMainImage) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBarView addSubview:mainImageBtn];
-    
-    HHButton *iconBtn = [[HHButton alloc] initWithFrame:CGRectMake(190, 0, 80, 40)];
-    [iconBtn setTitle:@"特效icon" forState:UIControlStateNormal];
-    [iconBtn addTarget:self action:@selector(onClickIcon) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBarView addSubview:iconBtn];
-    
-    HHButton *saveBtn = [[HHButton alloc] initWithFrame:CGRectMake(280, 0, 80, 40)];
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [saveBtn addTarget:self action:@selector(onClickedSave) forControlEvents:UIControlEventTouchUpInside];
-    [_toolBarView addSubview:saveBtn];
 }
 
-#pragma mark - target action
-- (void)onClickIcon
-{
-    HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
-        [self setupAppIconWithRow:[textString integerValue]];
-        [self showPaletteView];
-    }];
-    [alertView show];
-}
-
-- (void)onClickBackground
-{
-    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
-    imagePicker.delegate = self;
-    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
-}
-
-- (void)onClickMainImage
-{
-    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
-    imagePicker.delegate = self;
-    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, 280)];
-}
-
-- (void)onClickedSave
-{
-    [self.toolBarView setHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
-    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.toolBarView setHidden:NO];
-    });
-}
-
-- (void)onClickedImageView
-{
-    BOOL hidden = self.navigationController.navigationBar.hidden;
-    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
-}
-
+#pragma mark - private
 - (void)setBackgroundViewWithImage:(UIImage *)image
 {
     if (_backgroundView)

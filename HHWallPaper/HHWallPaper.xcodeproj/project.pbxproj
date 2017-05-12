@@ -36,6 +36,7 @@
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
 		E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79871EB1880E0055F9C4 /* CustomViewController.m */; };
 		E0EB799A1EB33CBD0055F9C4 /* HHMainImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */; };
+		E0FA8FE51EC5A80100F0E40C /* HHToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA8FE41EC5A80100F0E40C /* HHToolView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -261,6 +262,8 @@
 		E0EB79871EB1880E0055F9C4 /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
 		E0EB79981EB33CBD0055F9C4 /* HHMainImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHMainImageView.h; sourceTree = "<group>"; };
 		E0EB79991EB33CBD0055F9C4 /* HHMainImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHMainImageView.m; sourceTree = "<group>"; };
+		E0FA8FE31EC5A80100F0E40C /* HHToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHToolView.h; sourceTree = "<group>"; };
+		E0FA8FE41EC5A80100F0E40C /* HHToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHToolView.m; sourceTree = "<group>"; };
 		E2CF7BD9DAEE3703760CCD5A /* libPods-HHWallPaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HHWallPaper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -549,6 +552,8 @@
 				E0CB84BC1EC4646300689D73 /* HHAlertView.m */,
 				E0CB84BE1EC54E5000689D73 /* HHSliderView.h */,
 				E0CB84BF1EC54E5000689D73 /* HHSliderView.m */,
+				E0FA8FE31EC5A80100F0E40C /* HHToolView.h */,
+				E0FA8FE41EC5A80100F0E40C /* HHToolView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -735,6 +740,7 @@
 				E041667F1EA84C08003BC00C /* MaskLayerViewController.m in Sources */,
 				E0C4C9351E94D92D00A4E7FC /* AppDelegate.m in Sources */,
 				E0CB84BD1EC4646300689D73 /* HHAlertView.m in Sources */,
+				E0FA8FE51EC5A80100F0E40C /* HHToolView.m in Sources */,
 				E0474F221E9CB4CC006BF902 /* CommonTool.m in Sources */,
 				E0CB84B71EC4543200689D73 /* HHPaletteView.m in Sources */,
 				E0474F261E9CDFA5006BF902 /* UIImage+ColorSelect.m in Sources */,
