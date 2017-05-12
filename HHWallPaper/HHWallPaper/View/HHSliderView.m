@@ -1,23 +1,17 @@
 //
-//  HHPaletteView.m
+//  HHSliderView.m
 //  HHWallPaper
 //
-//  Created by 黄志航 on 2017/5/11.
+//  Created by 黄志航 on 2017/5/12.
 //  Copyright © 2017年 Hunt. All rights reserved.
 //
 
-#import "HHPaletteView.h"
-#import "UIColor+FlatUI.h"
-#import "UIImage+ColorSelect.h"
+#import "HHSliderView.h"
 #import "HHButton.h"
+#import "UIColor+FlatUI.h"
+#import "UISlider+FlatUI.h"
 
-@interface HHPaletteView ()
-
-@property (nonatomic, weak) UIImageView *paletteView;
-
-@end
-
-@implementation HHPaletteView
+@implementation HHSliderView
 
 - (void)layoutSubviews
 {
@@ -32,17 +26,23 @@
     [closeBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeBtn];
-
-    CGFloat xPostion = (self.width - 240)/2;
-    UIImageView *paletteView = [[UIImageView alloc] initWithFrame:CGRectMake(xPostion, self.height-250, 240, 240)];
-    [paletteView setImage:[UIImage imageNamed:@"pickerColorWheel"]];
-    paletteView.multipleTouchEnabled = YES;
-    paletteView.userInteractionEnabled = YES;
-    [self addSubview:paletteView];
-    _paletteView = paletteView;
-
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePalettePan:)];
-    [_paletteView addGestureRecognizer:pan];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, self.width, 30)];
+    titleLabel.text = @"高斯模糊度";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor midnightBlueColor];
+    [self addSubview:titleLabel];
+    
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 100, IPhoneWidth-20, 40)];
+    slider.maximumValue = 20;
+    slider.minimumValue = 0;
+    slider.value = 0;
+    slider.continuous = YES;
+    [slider configureFlatSliderWithTrackColor:[UIColor emerlandColor]
+                                progressColor:[UIColor alizarinColor]
+                                   thumbColor:[UIColor pomegranateColor]];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self addSubview:slider];
     
     __weak __typeof(self)weakSelf = self;
     [UIView animateWithDuration:0.5 animations:^{
@@ -60,13 +60,11 @@
     }];
 }
 
-- (void)handlePalettePan:(UIPanGestureRecognizer *)pan
+- (void)sliderValueChanged:(UISlider *)sender
 {
-    CGPoint tempPoint = [pan locationInView:_paletteView];
-    UIColor *mainColor = [_paletteView.image colorAtPixel:tempPoint];
-    if (mainColor != nil && self.panGesturesCallBack)
+    if (self.sliderCallback)
     {
-        self.panGesturesCallBack(mainColor);
+        self.sliderCallback(sender.value);
     }
 }
 

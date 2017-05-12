@@ -43,4 +43,34 @@
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
 }
 
++ (BOOL)isIPhone5Screen
+{
+    return [self isScreenSizeEqualTo:CGSizeMake(640, 1136)];
+}
+
++ (BOOL)isIPhone6Screen
+{
+    return [self isScreenSizeEqualTo:CGSizeMake(750, 1334)];
+}
+
++ (BOOL)isIPhone6pScreen
+{
+    return [self isScreenSizeEqualTo:CGSizeMake(1242, 2208)];
+}
+
++ (BOOL)isScreenSizeEqualTo:(CGSize)size
+{
+#if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+    CGSize size2      = CGSizeMake(size.height, size.width);
+    CGSize screenSize = [UIScreen mainScreen].currentMode.size;
+    
+    if (CGSizeEqualToSize(size, screenSize) || CGSizeEqualToSize(size2, screenSize) )
+    {
+        return YES;
+    }
+#endif
+    return NO;
+}
+
+
 @end

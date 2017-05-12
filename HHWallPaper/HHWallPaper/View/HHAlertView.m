@@ -52,9 +52,10 @@
 #pragma mark - FUIAlertViewDelegate
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSString *text = [alertView textFieldAtIndex:0].text.length>0 ? [alertView textFieldAtIndex:0].text : @"6";
     if (self.textFieldCallback)
     {
-        self.textFieldCallback([alertView textFieldAtIndex:0].text);
+        self.textFieldCallback(text);
     }
 }
 

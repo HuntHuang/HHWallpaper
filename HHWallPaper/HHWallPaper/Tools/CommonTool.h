@@ -12,4 +12,8 @@
 
 + (void)screenShots;
 
++ (BOOL)isIPhone5Screen;  // ip5 ip5s ip6放大模式
++ (BOOL)isIPhone6Screen;  // ip6
++ (BOOL)isIPhone6pScreen;  // ip6p
+
 @end

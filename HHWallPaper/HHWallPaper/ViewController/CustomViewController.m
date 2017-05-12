@@ -12,6 +12,7 @@
 #import "HHButton.h"
 #import "HHPaletteView.h"
 #import "HHAlertView.h"
+#import "HHSliderView.h"
 #import "GPUImage.h"
 #import "UIImage+QMUI.h"
 #import "UIImage+ColorSelect.h"
@@ -23,8 +24,7 @@
 @interface CustomViewController ()<LDImagePickerDelegate>
 
 @property (nonatomic, weak) UIView *toolBarView;
-@property (nonatomic, weak) UIView *dock;
-@property (nonatomic, weak) UISlider *blurSlider;
+@property (nonatomic, weak) GPUImageView *backgroundView;
 @property (nonatomic, strong) NSArray *iconArray;
 @property (nonatomic, strong) GPUImageGaussianBlurFilter *blurFilter;
 @property (nonatomic, strong) GPUImagePicture *staticPicture;
@@ -76,8 +76,55 @@
     [_toolBarView addSubview:saveBtn];
 }
 
+#pragma mark - target action
+- (void)onClickIcon
+{
+    HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
+        [self setupAppIconWithRow:[textString integerValue]];
+        [self showPaletteView];
+    }];
+    [alertView show];
+}
+
+- (void)onClickBackground
+{
+    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
+    imagePicker.delegate = self;
+    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
+}
+
+- (void)onClickMainImage
+{
+    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
+    imagePicker.delegate = self;
+    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, 280)];
+}
+
+- (void)onClickedSave
+{
+    [self.toolBarView setHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
+    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.toolBarView setHidden:NO];
+    });
+}
+
+- (void)onClickedImageView
+{
+    BOOL hidden = self.navigationController.navigationBar.hidden;
+    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
+}
+
 - (void)setBackgroundViewWithImage:(UIImage *)image
 {
+    if (_backgroundView)
+    {
+        [_backgroundView removeFromSuperview];
+        _backgroundView = nil;
+    }
     _staticPicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
     GPUImageView *backgroundView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, IPhoneWidth, IPhoneHeight)];
     _blurFilter = [[GPUImageGaussianBlurFilter alloc] init];
@@ -87,18 +134,15 @@
     [_blurFilter addTarget:backgroundView];
     [_staticPicture addTarget:_blurFilter];
     [_staticPicture processImage];
+    _backgroundView = backgroundView;
     
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 50, IPhoneWidth-20, 50)];
-    slider.maximumValue = 20;
-    slider.minimumValue = 0;
-    slider.value = 0;
-    slider.continuous = YES;
-    [slider configureFlatSliderWithTrackColor:[UIColor silverColor]
-                                progressColor:[UIColor alizarinColor]
-                                   thumbColor:[UIColor pomegranateColor]];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    HHSliderView *slider = [[HHSliderView alloc] initWithFrame:CGRectMake(0, IPhoneHeight, IPhoneWidth, 150)];
+    slider.sliderCallback = ^(float value)
+    {
+        [_blurFilter setBlurRadiusInPixels:value];
+        [_staticPicture processImage];
+    };
     [self.view addSubview:slider];
-    _blurSlider = slider;
 }
 
 - (void)setMainImageViewWithImage:(UIImage *)image
@@ -124,11 +168,11 @@
     {
         for (int j = 0; j < row; j++)
         {
-            CGFloat iconLength = 57;
-            CGFloat xMargin    = 37;
-            CGFloat yMargin    = j > 0 ? 42 : 40;
-            CGFloat xPosition  = xMargin*(i+1) + iconLength*i;
-            CGFloat yPosition  = yMargin*(j+1) + iconLength*j;
+            CGFloat iconLength = [CommonTool isIPhone6Screen] ? 57 : 60;
+            CGFloat xMargin    = [CommonTool isIPhone6Screen] ? 29 : 35;
+            CGFloat yMargin    = [CommonTool isIPhone6Screen] ? 30 : 38;
+            CGFloat xPosition  = xMargin*(i+1) + iconLength*i + ([CommonTool isIPhone6Screen] ? i : (- i/2));
+            CGFloat yPosition  = yMargin*(j+1) + iconLength*j + ([CommonTool isIPhone6Screen] ? j : j*2);
             CGRect rect = CGRectMake(xPosition, yPosition, iconLength, iconLength);
             HHIconView *shadow = [[HHIconView alloc] init];
             [shadow setupAppIconWithView:self.view rect:rect];
@@ -137,55 +181,6 @@
         }
     }
     self.iconArray = [mArray copy];
-    
-    //    CGFloat dockHeight = 96;
-    //    UIView *dock = [[UIView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - dockHeight, IPhoneWidth, dockHeight)];
-    //    dock.backgroundColor = self.mainColor;
-    //    [self.view insertSubview:dock atIndex:1];
-    //    _dock = dock;
-}
-
-#pragma mark - target action
-- (void)onClickIcon
-{
-    HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
-        [self setupAppIconWithRow:[textString integerValue]];
-        [self showPaletteView];
-    }];
-    [alertView show];
-}
-
-- (void)onClickBackground
-{
-    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
-    imagePicker.delegate = self;
-    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, IPhoneHeight)];
-}
-
-- (void)onClickMainImage
-{
-    [_blurSlider removeFromSuperview];
-    LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
-    imagePicker.delegate = self;
-    [imagePicker showImagePickerWithType:ImagePickerPhoto inViewController:self cropSize:CGSizeMake(IPhoneWidth, 280)];
-}
-
-- (void)onClickedSave
-{
-    [self.toolBarView setHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    UIImage *image = [UIImage qmui_imageWithView:self.view afterScreenUpdates:YES];
-    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [QMUITips showSucceed:@"保存成功" inView:self.view hideAfterDelay:2];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.toolBarView setHidden:NO];
-    });
-}
-
-- (void)onClickedImageView
-{
-    BOOL hidden = self.navigationController.navigationBar.hidden;
-    [self.navigationController setNavigationBarHidden:!hidden animated:YES];
 }
 
 - (void)showPaletteView
@@ -199,12 +194,6 @@
         }
     };
     [self.view addSubview:paletteView];
-}
-
-- (void)sliderValueChanged:(UISlider *)sender
-{
-    [_blurFilter setBlurRadiusInPixels:sender.value];
-    [_staticPicture processImage];
 }
 
 #pragma mark - LDImagePickerDelegate

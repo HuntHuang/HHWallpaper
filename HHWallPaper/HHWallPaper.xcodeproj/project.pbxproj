@@ -31,6 +31,7 @@
 		E0CB84B71EC4543200689D73 /* HHPaletteView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84B61EC4543200689D73 /* HHPaletteView.m */; };
 		E0CB84BA1EC459AB00689D73 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84B91EC459AB00689D73 /* UIView+Layout.m */; };
 		E0CB84BD1EC4646300689D73 /* HHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84BC1EC4646300689D73 /* HHAlertView.m */; };
+		E0CB84C01EC54E5000689D73 /* HHSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CB84BF1EC54E5000689D73 /* HHSliderView.m */; };
 		E0EB79821EAF53960055F9C4 /* LDImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */; };
 		E0EB79831EAF53960055F9C4 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79811EAF53960055F9C4 /* VPImageCropperViewController.m */; };
 		E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EB79871EB1880E0055F9C4 /* CustomViewController.m */; };
@@ -250,6 +251,8 @@
 		E0CB84B91EC459AB00689D73 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
 		E0CB84BB1EC4646300689D73 /* HHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHAlertView.h; sourceTree = "<group>"; };
 		E0CB84BC1EC4646300689D73 /* HHAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHAlertView.m; sourceTree = "<group>"; };
+		E0CB84BE1EC54E5000689D73 /* HHSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHSliderView.h; sourceTree = "<group>"; };
+		E0CB84BF1EC54E5000689D73 /* HHSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHSliderView.m; sourceTree = "<group>"; };
 		E0EB797E1EAF53960055F9C4 /* LDImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDImagePicker.h; sourceTree = "<group>"; };
 		E0EB797F1EAF53960055F9C4 /* LDImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDImagePicker.m; sourceTree = "<group>"; };
 		E0EB79801EAF53960055F9C4 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 				E0CB84B61EC4543200689D73 /* HHPaletteView.m */,
 				E0CB84BB1EC4646300689D73 /* HHAlertView.h */,
 				E0CB84BC1EC4646300689D73 /* HHAlertView.m */,
+				E0CB84BE1EC54E5000689D73 /* HHSliderView.h */,
+				E0CB84BF1EC54E5000689D73 /* HHSliderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -737,6 +742,7 @@
 				E00E37D11E963AA800FBF01D /* TemplateViewController.m in Sources */,
 				E0CB84BA1EC459AB00689D73 /* UIView+Layout.m in Sources */,
 				E0EB79881EB1880E0055F9C4 /* CustomViewController.m in Sources */,
+				E0CB84C01EC54E5000689D73 /* HHSliderView.m in Sources */,
 				E00E37CA1E963A9500FBF01D /* main.m in Sources */,
 				E0A7B86E1EB8629800E11894 /* HHIconView.m in Sources */,
 				E0EB799A1EB33CBD0055F9C4 /* HHMainImageView.m in Sources */,
