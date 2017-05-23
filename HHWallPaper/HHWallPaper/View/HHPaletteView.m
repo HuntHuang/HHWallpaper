@@ -30,7 +30,7 @@
     
     HHButton *closeBtn = [[HHButton alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
     [closeBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-    [closeBtn addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
+    [closeBtn addTarget:self action:@selector(onClickedClose) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:closeBtn];
 
     CGFloat xPostion = (self.width - 240)/2;
@@ -50,6 +50,15 @@
     }];
 }
 
+- (void)onClickedClose
+{
+    if (self.panGesturesCallBack)
+    {
+        self.panGesturesCallBack(nil, YES);
+    }
+    [self removeView];
+}
+
 - (void)removeView
 {
     __weak __typeof(self)weakSelf = self;
@@ -66,7 +75,7 @@
     UIColor *mainColor = [_paletteView.image colorAtPixel:tempPoint];
     if (mainColor != nil && self.panGesturesCallBack)
     {
-        self.panGesturesCallBack(mainColor);
+        self.panGesturesCallBack(mainColor, NO);
     }
 }
 

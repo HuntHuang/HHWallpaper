@@ -52,13 +52,14 @@
 - (void)setupToolBar
 {
     __weak __typeof(self)weakSelf = self;
-    HHToolView *toolView = [[HHToolView alloc] initWithFrame:CGRectMake(0, IPhoneHeight - 50, IPhoneWidth, 50)];
+    HHToolView *toolView = [[HHToolView alloc] initWithFrame:CGRectMake(0, self.view.height - 70, self.view.width, 70)];
+    toolView.contentSize = CGSizeMake(self.view.bounds.size.width*2, 0);
     toolView.buttonCallback = ^(NSInteger tag, UIView *toolBarView)
     {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         switch (tag)
         {
-            case 0:
+            case 0://背景图片
             {
                 LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
                 imagePicker.delegate = strongSelf;
@@ -66,10 +67,10 @@
             }
                 break;
                 
-            case 1:
+            case 1://背景颜色
             {
                 HHPaletteView *paletteView = [[HHPaletteView alloc] initWithFrame:CGRectMake(0, IPhoneHeight, IPhoneWidth, 300)];
-                paletteView.panGesturesCallBack = ^(UIColor *mainColor)
+                paletteView.panGesturesCallBack = ^(UIColor *mainColor, BOOL isClose)
                 {
                     strongSelf.view.backgroundColor = mainColor;
                 };
@@ -77,7 +78,7 @@
             }
                 break;
             
-            case 2:
+            case 2://相框图片
             {
                 LDImagePicker *imagePicker = [LDImagePicker sharedInstance];
                 imagePicker.delegate = strongSelf;
@@ -85,17 +86,38 @@
             }
                 break;
                 
-            case 3:
+            case 3://特效icon
             {
-                HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
+                HHAlertView *alertView = [[HHAlertView alloc] initWithTitle:@"请输入icon行数" cancelButtonTitle:@"取消" otherButtonTitle:@"确定" textFieldCallback:^(NSString *textString) {
+                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                    [QMUITips showLoading:@"渲染中" inView:window];
                     [strongSelf setupAppIconWithRow:[textString integerValue]];
                     [strongSelf showPaletteView];
+                    [QMUITips hideAllToastInView:window animated:YES];
                 }];
                 [alertView show];
             }
                 break;
                 
-            case 4:
+            case 4://预览
+            {
+                
+            }
+                break;
+                
+            case 5://重置
+            {
+                for(UIView *view in self.view.subviews)
+                {
+                    if (![view isMemberOfClass:[HHToolView class]])
+                    {
+                        [view removeFromSuperview];
+                    }
+                }
+            }
+                break;
+                
+            case 6://保存
             {
                 [toolBarView setHidden:YES];
                 [strongSelf.navigationController setNavigationBarHidden:YES animated:YES];
@@ -153,14 +175,7 @@
 
 - (void)setupAppIconWithRow:(NSInteger)row
 {
-    if (self.iconArray.count > 0)
-    {
-        for (HHIconView *iconView in self.iconArray)
-        {
-            [iconView removeFromSuperview];
-        }
-        self.iconArray = nil;
-    }
+    [self removeIconView];
     NSMutableArray *mArray = [NSMutableArray array];
     for (int i = 0; i < 4; i++)
     {
@@ -184,14 +199,33 @@
 - (void)showPaletteView
 {
     HHPaletteView *paletteView = [[HHPaletteView alloc] initWithFrame:CGRectMake(0, IPhoneHeight, IPhoneWidth, 300)];
-    paletteView.panGesturesCallBack = ^(UIColor *mainColor)
+    paletteView.panGesturesCallBack = ^(UIColor *mainColor, BOOL isClose)
     {
-        for (UIImageView *appIcon in self.iconArray)
+        if (isClose)
         {
-            appIcon.layer.shadowColor = mainColor.CGColor;
+            [self removeIconView];
+        }
+        else
+        {
+            for (UIImageView *appIcon in self.iconArray)
+            {
+                appIcon.layer.shadowColor = mainColor.CGColor;
+            }
         }
     };
     [self.view addSubview:paletteView];
+}
+
+- (void)removeIconView
+{
+    if (self.iconArray.count > 0)
+    {
+        for (HHIconView *iconView in self.iconArray)
+        {
+            [iconView removeFromSuperview];
+        }
+        self.iconArray = nil;
+    }
 }
 
 #pragma mark - LDImagePickerDelegate

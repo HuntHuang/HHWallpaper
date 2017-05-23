@@ -10,6 +10,6 @@
 
 @interface HHPaletteView : UIView
 
-@property (nonatomic, copy) void(^panGesturesCallBack)(UIColor *color);
+@property (nonatomic, copy) void(^panGesturesCallBack)(UIColor *color, BOOL isClose);
 
 @end

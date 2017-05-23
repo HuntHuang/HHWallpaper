@@ -13,8 +13,10 @@
 
 - (void)layoutSubviews
 {
-    NSArray *titleArray = @[@"背景图片", @"背景颜色", @"相框图片", @"特效icon", @"保存"];
-    for (int i = 0; i < 5; i++)
+    self.bounces = NO;
+    self.showsHorizontalScrollIndicator = NO;
+    NSArray *titleArray = @[@"背景图片", @"背景颜色", @"相框图片", @"特效icon", @"预览", @"重置", @"保存"];
+    for (int i = 0; i < titleArray.count; i++)
     {
         HHButton *button = [[HHButton alloc] initWithFrame:CGRectMake(10 + i*80, 0, 70, 40)];
         [button setTitle:titleArray[i] forState:UIControlStateNormal];

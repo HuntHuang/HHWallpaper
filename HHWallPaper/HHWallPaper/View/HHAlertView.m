@@ -16,9 +16,9 @@
 
 @implementation HHAlertView
 
-- (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle textFieldCallback:(void(^)(NSString *textString))textFieldCallback
+- (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle textFieldCallback:(void(^)(NSString *textString))textFieldCallback
 {
-    self = [super initWithTitle:title message:nil delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
+    self = [super initWithTitle:title message:nil delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:otherButtonTitle, nil];
     if (self)
     {
         self.textFieldCallback = textFieldCallback;
@@ -27,13 +27,19 @@
     return self;
 }
 
+- (void)dealloc
+{
+    _textFieldCallback = nil;
+}
+
 - (void)setupWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle
 {
     self.alertViewStyle = FUIAlertViewStylePlainTextInput;
-    [@[[self textFieldAtIndex:0], [self textFieldAtIndex:1]] enumerateObjectsUsingBlock:^(FUITextField *textField, NSUInteger idx, BOOL *stop) {
+    [@[[self textFieldAtIndex:0], [self textFieldAtIndex:1]] enumerateObjectsUsingBlock:^(FUITextField *textField, NSUInteger idx, BOOL *stop) { 
         [textField setTextFieldColor:[UIColor cloudsColor]];
         [textField setBorderColor:[UIColor asbestosColor]];
         [textField setCornerRadius:4];
+        textField.keyboardType = UIKeyboardTypeNumberPad;
         [textField setFont:[UIFont flatFontOfSize:14]];
         [textField setTextColor:[UIColor midnightBlueColor]];
     }];
@@ -53,7 +59,7 @@
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *text = [alertView textFieldAtIndex:0].text.length>0 ? [alertView textFieldAtIndex:0].text : @"6";
-    if (self.textFieldCallback)
+    if (buttonIndex == 1 && self.textFieldCallback)
     {
         self.textFieldCallback(text);
     }

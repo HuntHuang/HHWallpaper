@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HHToolView : UIView
+@interface HHToolView : UIScrollView
 
 @property (nonatomic, copy) void(^buttonCallback)(NSInteger tag, UIView *toolView);
 

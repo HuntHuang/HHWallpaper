@@ -10,6 +10,6 @@
 
 @interface HHAlertView : FUIAlertView
 
-- (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle textFieldCallback:(void(^)(NSString *textString))textFieldCallback;
+- (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle textFieldCallback:(void(^)(NSString *textString))textFieldCallback;
 
 @end
